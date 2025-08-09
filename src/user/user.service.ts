@@ -11,6 +11,7 @@ import { PrismaService } from '../common/prisma.service';
 import { UserValidation } from './user.validation';
 import * as bcrypt from 'bcrypt';
 import { v4 as uuid } from 'uuid';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class UserService {
@@ -54,7 +55,7 @@ export class UserService {
       request,
     );
 
-    let user = this.prismaService.user.findUnique({
+    let user = await this.prismaService.user.findUnique({
       where: {
         username: loginRequest.username,
       },
@@ -64,7 +65,7 @@ export class UserService {
       throw new HttpException('Username or Password is invalid', 401);
     }
 
-    const isPasswordValid = bcrypt.compare(
+    const isPasswordValid = await bcrypt.compare(
       loginRequest.password,
       user.password,
     );
@@ -85,7 +86,14 @@ export class UserService {
     return {
       username: user.username,
       name: user.name,
-      token: user.toker,
+      token: user.token ?? undefined,
+    };
+  }
+
+  async get(user: User): Promise<UserResponse> {
+    return {
+      username: user.username,
+      name: user.name,
     };
   }
 }
