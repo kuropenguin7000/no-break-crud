@@ -1,0 +1,11 @@
+### Create contact
+POST http://localhost:3000/api/contacts
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "first_name": "Dark",
+  "last_name": "Pokopang",
+  "email": "dark@pokopang.com",
+  "phone": "+61123456"
+}
