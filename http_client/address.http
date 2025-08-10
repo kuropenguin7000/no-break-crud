@@ -1,0 +1,44 @@
+### Login user
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "username": "pokopang",
+  "password": "123"
+}
+> {% client.global.set("authToken", response.body.data.token); %}
+
+### Create address
+POST http://localhost:3000/api/contacts/1/addresses
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "street": "Jalan Talalla",
+  "city": "Kuala Lumpur",
+  "province": "Kuala Lumpur",
+  "country": "Malaysia",
+  "postal_code": "543000"
+}
+
+### Get by address id
+GET http://localhost:3000/api/contacts/1/addresses/1
+Authorization: {{authToken}}
+
+### Edit address
+PUT http://localhost:3000/api/contacts/1/addresses/1
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "country": "KL",
+  "postal_code": "123456"
+}
+
+### Delete by address id
+DELETE http://localhost:3000/api/contacts/1/addresses/1
+Authorization: {{authToken}}
+
+### Get list addresses
+GET http://localhost:3000/api/contacts/1/addresses
+Authorization: {{authToken}}
