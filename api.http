@@ -1,0 +1,32 @@
+### Insert new user
+POST http://localhost:3000/api/users
+Content-Type: application/json
+
+{
+    "username": "pokopang",
+    "password": "123",
+    "name": "Dark Pokopang"
+}
+
+### Login to get token
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "username": "pokopang",
+  "password": "123"
+}
+> {% client.global.set("authToken", response.body.data.token); %}
+
+### Get current login user
+GET http://localhost:3000/api/users/current
+Authorization: {{authToken}}
+
+### Update user
+PATCH http://localhost:3000/api/users/current
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "name": "Light Pokopang"
+}
