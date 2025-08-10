@@ -23,3 +23,20 @@ Content-Type: application/json
 ### Get by contact id
 GET http://localhost:3000/api/contacts/1
 Authorization: {{authToken}}
+
+### Edit contact by id
+PUT http://localhost:3000/api/contacts/1
+Authorization: {{authToken}}
+Content-Type: application/json
+
+{
+  "first_name": "Light"
+}
+
+### Delete contact by id
+DELETE http://localhost:3000/api/contacts/1
+Authorization: {{authToken}}
+
+### Search contact
+GET http://localhost:3000/api/contacts?name=li
+Authorization: {{authToken}}
